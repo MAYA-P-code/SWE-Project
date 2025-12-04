@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Professor Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #1f2933;
+            color: #fff;
+            padding: 10px 20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+        nav {
+            background-color: #111827;
+            padding: 8px 20px;
+        }
+        nav a {
+            color: #ffffff;
+            margin-right: 15px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 20px;
+        }
+        .card {
+            background-color: #ffffff;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .card h2 {
+            margin-top: 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        .btn-primary {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+        .btn-secondary {
+            background-color: #10b981;
+            color: #ffffff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: #ffffff;
+        }
+        th, td {
+            padding: 8px 10px;
+            border: 1px solid #e5e7eb;
+            text-align: left;
+        }
+        th {
+            background-color: #e5e7eb;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Course Registration System – Professor</h1>
+</header>
+
+<nav>
+    <a href="prof.html">Dashboard</a>
+    <a href="profcourse.html">My Courses</a>
+   
+</nav>
+
+<main>
+    <div class="card">
+        <h2>Welcome, Professor Name</h2>
+        <p>Here you can manage your courses and assign grades to students.</p>
+    </div>
+
+    <div class="card">
+        <h2>Overview</h2>
+        <table>
+            <tr>
+                <th>Total Courses</th>
+                <th>Active Courses</th>
+                <th>Students Enrolled</th>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>3</td>
+                <td>85</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Quick Actions</h2>
+        <a href="profcourse.html" class="btn btn-primary">View My Courses</a>
+    </div>
+</main>
+
+</body>
+</html>

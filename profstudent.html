@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Course Students & Grades</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #1f2933;
+            color: #fff;
+            padding: 10px 20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+        nav {
+            background-color: #111827;
+            padding: 8px 20px;
+        }
+        nav a {
+            color: #ffffff;
+            margin-right: 15px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 20px;
+        }
+        .card {
+            background-color: #ffffff;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .card h2 {
+            margin-top: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: #ffffff;
+        }
+        th, td {
+            padding: 8px 10px;
+            border: 1px solid #e5e7eb;
+            text-align: left;
+        }
+        th {
+            background-color: #e5e7eb;
+        }
+        input[type="text"] {
+            width: 80px;
+            padding: 4px 6px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            text-decoration: none;
+        }
+        .btn-primary {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Course Students & Grades</h1>
+</header>
+
+<nav>
+    <a href="prof.html">Dashboard</a>
+    <a href="profcourse.html">My Courses</a>
+</nav>
+
+<main>
+    <div class="card">
+    
+        <h2>Course: CS101 – Introduction to Programming</h2>
+        <p>Here you can view enrolled students and assign or update their grades.</p>
+    </div>
+
+    <div class="card">
+        <h2>Enrolled Students</h2>
+        <form>
+            <table>
+                <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Current Grade</th>
+                    <th>New Grade</th>
+                </tr>
+                </thead>
+                <tbody>
+               
+                <tr>
+                    <td>202401234</td>
+                    <td>Student One</td>
+                    <td>A</td>
+                    <td><input type="text" name="grade_202401234" placeholder="A/B+/C..."></td>
+                </tr>
+                <tr>
+                    <td>202401235</td>
+                    <td>Student Two</td>
+                    <td>B+</td>
+                    <td><input type="text" name="grade_202401235" placeholder="A/B+/C..."></td>
+                </tr>
+               
+                </tbody>
+            </table>
+
+            <br>
+            <button type="submit" class="btn btn-primary">Save Grades</button>
+        </form>
+    </div>
+</main>
+
+</body>
+</html>

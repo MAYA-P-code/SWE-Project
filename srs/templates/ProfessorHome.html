@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+    <meta charset="UTF-8">
+    <title>Professor Home</title>
+</head>
+<body>
+
+    <h1>Professor Home</h1>
+
+    <p>
+        Professor ID: {{ professor.pID }}<br>
+        {% if professor.pname %}
+            Name: {{ professor.pname }}<br>
+        {% endif %}
+        Course: {{ course_id }}
+    </p>
+
+    <form action="{{ url_for('professor.get_students_in_course', c_id=course_id) }}" method="get">
+        <button type="submit">View Registered Students</button>
+    </form>
+
+</body>
+</html>

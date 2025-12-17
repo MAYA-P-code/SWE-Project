@@ -31,3 +31,53 @@ class adminRepo:
             return f"""Successfully added {name}"""
         except Exception as e:
             return f"""Error: {e}"""
+
+    def get_all_students(self):
+        return self.db.execute("SELECT stID, sname FROM Student").fetchall()
+    
+    def get_all_professors(self):
+        return self.db.execute("SELECT pID, pname FROM Professor").fetchall()
+    
+    def get_student_by_id(self, student_id):
+        return self.db.execute("SELECT stID, sname FROM Student WHERE stID = ?", (student_id,)).fetchone()
+    
+    def get_professor_by_id(self, professor_id):
+        return self.db.execute("SELECT pID, pname FROM Professor WHERE pID = ?", (professor_id,)).fetchone()
+    
+    def update_student(self, student_id, name, password=None):
+        try:
+            if password:
+                self.db.execute("UPDATE Student SET sname = ?, pass = ? WHERE stID = ?", (name, password, student_id))
+            else:
+                self.db.execute("UPDATE Student SET sname = ? WHERE stID = ?", (name, student_id))
+            self.db.commit()
+            return f"""Successfully updated student {student_id}"""
+        except Exception as e:
+            return f"""Error: {e}"""
+    
+    def update_professor(self, professor_id, name, password=None):
+        try:
+            if password:
+                self.db.execute("UPDATE Professor SET pname = ?, pass = ? WHERE pID = ?", (name, password, professor_id))
+            else:
+                self.db.execute("UPDATE Professor SET pname = ? WHERE pID = ?", (name, professor_id))
+            self.db.commit()
+            return f"""Successfully updated professor {professor_id}"""
+        except Exception as e:
+            return f"""Error: {e}"""
+    
+    def delete_student(self, student_id):
+        try:
+            self.db.execute("DELETE FROM Student WHERE stID = ?", (student_id,))
+            self.db.commit()
+            return f"""Successfully deleted student {student_id}"""
+        except Exception as e:
+            return f"""Error: {e}"""
+    
+    def delete_professor(self, professor_id):
+        try:
+            self.db.execute("DELETE FROM Professor WHERE pID = ?", (professor_id,))
+            self.db.commit()
+            return f"""Successfully deleted professor {professor_id}"""
+        except Exception as e:
+            return f"""Error: {e}"""

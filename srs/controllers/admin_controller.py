@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, session
 from srs.repositories.adminRepo import adminRepo
 from srs.db import get_db
 
-admin_bp = Blueprint("admin", __name__)
+admin_bp = Blueprint("admin", __name__, url_prefix="/admin")
 
 @admin_bp.route('/ManageUsers')
 def manage():
@@ -35,3 +35,102 @@ def addUser():
         status = adminRepo(db, admin_id).add_admin(id, name, password)
 
     return render_template("ManageUsers.html", message = status)
+@admin_bp.route('/ManageAccounts')
+def manage_accounts():
+    db = get_db()
+    admin_id = session.get('userID')
+    
+    students = adminRepo(db, admin_id).get_all_students()
+    professors = adminRepo(db, admin_id).get_all_professors()
+    
+    return render_template("ManageAccounts.html", 
+                          students=students, 
+                          professors=professors)
+
+@admin_bp.route('/edit_student/<student_id>')
+def edit_student(student_id):
+    db = get_db()
+    admin_id = session.get('userID')
+    
+    student = adminRepo(db, admin_id).get_student_by_id(student_id)
+    
+    if not student:
+        return "Student not found"
+    
+    return render_template("EditStudent.html", student=student)
+
+@admin_bp.route('/update_student/<student_id>', methods=['POST'])
+def update_student(student_id):
+    db = get_db()
+    admin_id = session.get('userID')
+    
+    name = request.form.get('name')
+    password = request.form.get('password')
+    
+    if password and password.strip():
+        status = adminRepo(db, admin_id).update_student(student_id, name, password)
+    else:
+        status = adminRepo(db, admin_id).update_student(student_id, name)
+    
+    return render_template("EditStudent.html", 
+                          student={'stID': student_id, 'sname': name}, 
+                          message=status)
+
+@admin_bp.route('/delete_student/<student_id>', methods=['POST'])
+def delete_student(student_id):
+    db = get_db()
+    admin_id = session.get('userID')
+    
+    status = adminRepo(db, admin_id).delete_student(student_id)
+    
+    students = adminRepo(db, admin_id).get_all_students()
+    professors = adminRepo(db, admin_id).get_all_professors()
+    
+    return render_template("ManageAccounts.html", 
+                          students=students, 
+                          professors=professors, 
+                          message=status)
+
+@admin_bp.route('/edit_professor/<professor_id>')
+def edit_professor(professor_id):
+    db = get_db()
+    admin_id = session.get('userID')
+    
+    professor = adminRepo(db, admin_id).get_professor_by_id(professor_id)
+    
+    if not professor:
+        return "Professor not found"
+    
+    return render_template("EditProfessor.html", professor=professor)
+
+@admin_bp.route('/update_professor/<professor_id>', methods=['POST'])
+def update_professor(professor_id):
+    db = get_db()
+    admin_id = session.get('userID')
+    
+    name = request.form.get('name')
+    password = request.form.get('password')
+    
+    if password and password.strip():
+        status = adminRepo(db, admin_id).update_professor(professor_id, name, password)
+    else:
+        status = adminRepo(db, admin_id).update_professor(professor_id, name)
+    
+    return render_template("EditProfessor.html", 
+                          professor={'pID': professor_id, 'pname': name}, 
+                          message=status)
+
+@admin_bp.route('/delete_professor/<professor_id>', methods=['POST'])
+def delete_professor(professor_id):
+    db = get_db()
+    admin_id = session.get('userID')
+    
+    status = adminRepo(db, admin_id).delete_professor(professor_id)
+    
+    students = adminRepo(db, admin_id).get_all_students()
+    professors = adminRepo(db, admin_id).get_all_professors()
+    
+    return render_template("ManageAccounts.html", 
+                          students=students, 
+                          professors=professors, 
+                          message=status)

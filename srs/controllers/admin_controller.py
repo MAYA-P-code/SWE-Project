@@ -134,3 +134,45 @@ def delete_professor(professor_id):
                           students=students, 
                           professors=professors, 
                           message=status)
+
+@admin_bp.route('/ManageCourses')
+def manage_courses():
+    db = get_db()
+    admin_id = session.get('userID')
+    
+    courses = adminRepo(db, admin_id).get_all_courses()
+    
+    return render_template("ManageCourses.html", courses=courses)
+
+@admin_bp.route('/assign_professor/<course_id>')
+def assign_professor(course_id):
+    db = get_db()
+    admin_id = session.get('userID')
+    
+    course = adminRepo(db, admin_id).get_course_by_id(course_id)
+    professors = adminRepo(db, admin_id).get_all_professors()
+    
+    if not course:
+        return "Course not found"
+    
+    return render_template("AssignProfessor.html", 
+                          course=course, 
+                          professors=professors)
+
+@admin_bp.route('/update_course_professor/<course_id>', methods=['POST'])
+def update_course_professor(course_id):
+    db = get_db()
+    admin_id = session.get('userID')
+    
+    professor_id = request.form.get('professor_id')
+    
+    if not professor_id:
+        return "Please select a professor"
+    
+    status = adminRepo(db, admin_id).assign_professor_to_course(course_id, professor_id)
+    
+    courses = adminRepo(db, admin_id).get_all_courses()
+    
+    return render_template("ManageCourses.html", 
+                          courses=courses, 
+                          message=status)

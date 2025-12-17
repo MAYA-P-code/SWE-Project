@@ -26,7 +26,7 @@ class adminRepo:
         
     def add_admin(self, a_id, name, password):
         try:
-            self.db.execute("INSERT INTO Student (aID, aname, pass) VALUES (?, ?, ?)", (a_id, name, password))
+            self.db.execute("INSERT INTO Admin (aID, aname, pass) VALUES (?, ?, ?)", (a_id, name, password))
             self.db.commit()
             return f"""Successfully added {name}"""
         except Exception as e:
@@ -81,3 +81,32 @@ class adminRepo:
             return f"""Successfully deleted professor {professor_id}"""
         except Exception as e:
             return f"""Error: {e}"""
+
+    def get_all_courses(self):
+        return self.db.execute("""
+            SELECT c.cID, c.cname, c.PrID, p.pname 
+            FROM Course c 
+            LEFT JOIN Professor p ON c.PrID = p.pID
+        """).fetchall()
+    
+    def get_course_by_id(self, course_id):
+        return self.db.execute("""
+            SELECT c.cID, c.cname, c.PrID, p.pname 
+            FROM Course c 
+            LEFT JOIN Professor p ON c.PrID = p.pID
+            WHERE c.cID = ?
+        """, (course_id,)).fetchone()
+    
+    def assign_professor_to_course(self, course_id, professor_id):
+        try:
+            # Check if professor exists
+            prof = self.db.execute("SELECT pID FROM Professor WHERE pID = ?", (professor_id,)).fetchone()
+            if not prof:
+                return f"Error: Professor {professor_id} not found"
+            
+            # Update course professor
+            self.db.execute("UPDATE Course SET PrID = ? WHERE cID = ?", (professor_id, course_id))
+            self.db.commit()
+            return f"Successfully assigned professor {professor_id} to course {course_id}"
+        except Exception as e:
+            return f"Error: {e}"

@@ -12,7 +12,7 @@ def test_admin_add_student(mock_repo_class, client):
         sess['userID'] = 1
         sess['type'] = 'Admin'
 
-    response = client.post("/AddUser", data={
+    response = client.post("/admin/AddUser", data={
         "usertype": "Student",
         "id": "202401389",
         "name": "Hazem",

@@ -21,7 +21,13 @@ def view_grades():
 @student_bp.route('/course_reg')
 def course_reg():
 
-    return render_template("register_course.html")
+    student_id = session["userID"]
+
+    db = get_db()
+    
+    courses = studentRepo(db, student_id).getAvailableCourses()
+
+    return render_template("register_course.html", courses = courses)
 
 @student_bp.route('/register_course', methods=['POST'])
 def register_course():
@@ -48,3 +54,27 @@ def register_course():
             <p>{str(e)}</p>
             <a href='/StudentHome'>Click here to go back</a>
         """
+
+@student_bp.route('/drop_course', methods=['GET', 'POST'])
+def drop_course():
+    student_id = session.get('userID')
+    if not student_id:
+        return "Not logged in"
+
+    if request.method == 'POST':
+        course_id = request.form.get("course_id")
+        db = get_db()
+        try:
+            studentRepo(db, student_id).DropCourse(course_id)
+            return f"""
+                <p>You have dropped course: {course_id}</p>
+                <a href='/StudentHome'>Click here to go back to Student Home</a>
+            """
+        except Exception as e:
+            return f"""
+                <h1>Error</h1>
+                <p>{str(e)}</p>
+                <a href='/StudentHome'>Click here to go back</a>
+            """
+    else:
+        return render_template("drop_course.html")

@@ -35,6 +35,7 @@ def addUser():
         status = adminRepo(db, admin_id).add_admin(id, name, password)
 
     return render_template("ManageUsers.html", message = status)
+
 @admin_bp.route('/ManageAccounts')
 def manage_accounts():
     db = get_db()
@@ -176,3 +177,30 @@ def update_course_professor(course_id):
     return render_template("ManageCourses.html", 
                           courses=courses, 
                           message=status)
+
+
+@admin_bp.route("/AddCourse", methods=["POST"])
+def addCourse():
+    c_id = request.form["course_id"]
+    cname = request.form["course_name"]
+    capacity = request.form["capacity"]
+    professor_id = request.form["professor_id"]
+
+    db = get_db()
+    admin_id = session.get('userID')
+
+    status = adminRepo(db, admin_id).add_course(c_id, cname, capacity, professor_id)
+
+    return render_template("ManageCourses.html", message=status)
+
+
+@admin_bp.route("/RemoveCourse", methods=["POST"])
+def removeCourse():
+    c_id = request.form["course_id"]
+
+    db = get_db()
+    admin_id = session.get('userID')
+
+    status = adminRepo(db, admin_id).remove_course(c_id)
+
+    return render_template("ManageCourses.html", message=status)

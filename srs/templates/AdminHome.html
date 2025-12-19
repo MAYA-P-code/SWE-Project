@@ -22,7 +22,7 @@
                         <td class="center-content">
                        
                             <div>
-                                <a href="ManageUsers">
+                                <a href="{{ url_for('admin.manage') }}">
                                     <button class="button">Manage Users</button>
                                 </a>
                             </div>
@@ -38,13 +38,5 @@
             </div>
         </div>
     </body>
-
-    <p>Where would you like to go, {{username}}</p>
-
-    <a href="{{ url_for('admin.manage') }}">
-
-        <button>Manage Users</button>
-
-    </a>
 
 </html>

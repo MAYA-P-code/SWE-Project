@@ -12,7 +12,7 @@ def test_admin_add_student(mock_repo_class, mock_current_user, client):
     mock_current_user.id = "A01"
     mock_current_user.is_authenticated = True
 
-    response = client.post("/AddUser", data={
+    response = client.post("/admin/AddUser", data={
         "usertype": "Student",
         "id": "202401389",
         "name": "Ahmed",
@@ -32,7 +32,7 @@ def test_admin_add_prof(mock_repo_class, mock_current_user, client):
     mock_current_user.id = "A01"
     mock_current_user.is_authenticated = True
 
-    response = client.post("/AddUser", data={
+    response = client.post("/admin/AddUser", data={
         "usertype": "Professor",
         "id": "20240000",
         "name": "Mohammed",
@@ -52,7 +52,7 @@ def test_admin_add_admin(mock_repo_class, mock_current_user, client):
     mock_current_user.id = "A01"
     mock_current_user.is_authenticated = True
 
-    response = client.post("/AddUser", data={
+    response = client.post("/admin/AddUser", data={
         "usertype": "Admin",
         "id": "20240000",
         "name": "George",

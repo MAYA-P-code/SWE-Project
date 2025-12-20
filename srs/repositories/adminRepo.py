@@ -114,23 +114,18 @@ class adminRepo:
             return f"Error: {e}"
     
     def add_course(self, c_id, cname, capacity, professor_id):
-        try:
-            self.db.execute(
-                "INSERT INTO Course (cID, cname, capacity, PrID) VALUES (?, ?, ?, ?)",
-                (c_id, cname, capacity, professor_id),
-            )
-            self.db.commit()
-            return "Course added successfully."
-        except Exception as e:
-            return f"Error: {e}"
-    
-    def remove_course(self, c_id):
-        try:
-            self.db.execute(
-                "DELETE FROM Course WHERE cID = ?",
-                (c_id,),
-            )
-            self.db.commit()
-            return "Course removed successfully."
-        except Exception as e:
-            return f"Error: {e}"
+    self.db.execute(
+        "INSERT INTO Course (cID, cname, capacity, PrID) VALUES (?, ?, ?, ?)",
+        (c_id, cname, capacity, professor_id),
+    )
+    self.db.commit()
+    return "Course added successfully."
+
+def remove_course(self, c_id):
+    self.db.execute(
+        "DELETE FROM Course WHERE cID = ?",
+        (c_id,),
+    )
+    self.db.commit()
+    return "Course removed successfully."
+
